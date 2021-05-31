@@ -26,6 +26,12 @@ resource "azurerm_resource_group" "tf_test" {
     location = "Southeast Asia"
 }
 
+variable "imagebuild" {
+  type        = string
+  description = "Latest image build"
+}
+
+
 resource "azurerm_container_group" "tfcg_test" {
     name = "weatherapi"
     location = azurerm_resource_group.tf_test.location
@@ -37,7 +43,7 @@ resource "azurerm_container_group" "tfcg_test" {
 
     container {
         name    = "weatherapi"
-        image   = "sgwong513/weatherapi"
+        image   = "sgwong513/weatherapi:${var.imagebuild}"
         cpu     = "1"
         memory  = "1"
 
